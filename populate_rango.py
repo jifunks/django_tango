@@ -3,26 +3,27 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.setti
 import django
 django.setup()
 from rango.models import Category, Page
+from random import randint
 
 def populate():
     # create lists of dictionaries containing pages we want to add into each category
     # then create dict of dicts for categories
 
     python_pages = [
-        {"title": "Official Python Tutorial", "url":"http://docs.python.org/2/tutorial/"},
-        {"title": "How to Think like a Computer Scientist", "url":"http://www.greenteapress.com/thinkpython"},
-        {"title":"Learn Python in 10 Minutes", "url":"http://www.korokithakis.net/tutorials/python/"},
+        {"title": "Official Python Tutorial", "url":"http://docs.python.org/2/tutorial/", "views":"256"},
+        {"title": "How to Think like a Computer Scientist", "url":"http://www.greenteapress.com/thinkpython", "views":"32"},
+        {"title":"Learn Python in 10 Minutes", "url":"http://www.korokithakis.net/tutorials/python/", "views":"1"},
     ]
 
     django_pages = [
-        {"title":"Official Django Tutorial", "url":"https://docs.djangoproject.com/en/1.9/intro/tutorial01/"},
-        {"title":"Django Rocks", "url":"http://www.djangorocks.com/"},
-        {"title":"How to Tango with Django", "url":"http://www.tangowithdjango.com/"}
+        {"title":"Official Django Tutorial", "url":"https://docs.djangoproject.com/en/1.9/intro/tutorial01/", "views":"128"},
+        {"title":"Django Rocks", "url":"http://www.djangorocks.com/", "views":"16"},
+        {"title":"How to Tango with Django", "url":"http://www.tangowithdjango.com/", "views":"2"}
         ]
 
     other_pages = [
-        {"title":"Bottle", "url":"http://bottlepy.org/docs/dev/"},
-        {"title":"Flask", "url":"http://flask.pocoo.org"}
+        {"title":"Bottle", "url":"http://bottlepy.org/docs/dev/", "views":"64"},
+        {"title":"Flask", "url":"http://flask.pocoo.org", "views":"32"}
         ]
 
     cats = {"Python": {"pages": python_pages, "views":"128", "likes":"64"},
@@ -32,7 +33,7 @@ def populate():
     for cat, cat_data in cats.items():
         c = add_cat(cat, cat_data["views"], cat_data["likes"])
         for p in cat_data["pages"]:
-            add_page(c, p["title"], p["url"])
+            add_page(c, p["title"], p["url"], p["views"])
 
     # Print out categories we have added
     for c in Category.objects.all():
