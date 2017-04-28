@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
+{% extends "rango/base.html" %}
+{% load staticfiles %}
 
-    <body>
-        <h1>Add a Category</h1>
-        <div>
-            <form id="category_form" method="post" action="/rango/add_category/">
-                <!-- cross site forgery token to prevent CSRF crap -->
-                {% csrf_token %}
-                <!-- hidden fields required bc http is stateless -->
-                <!-- Can't persist state between differnt HTTP requests - so hidden html fields created to allow web apps
-                to pass important information to a client in html form -->
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
+{% block titleblock %}
+    Add Category
+{% endblock %}
 
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
-                {% endfor %}
+{% block body_block %}
+    <h1>Add a Category</h1>
+    <div>
+        <form id="category_form" method="post" action="{% url 'add_category' %}">
+            <!-- cross site forgery token to prevent CSRF crap -->
+            {% csrf_token %}
+            <!-- hidden fields required bc http is stateless -->
+            <!-- Can't persist state between differnt HTTP requests - so hidden html fields created to allow web apps
+            to pass important information to a client in html form -->
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
 
-                <input type="submit" name="submit" value="Create Category" />
-            </form>
-        </div>
-    </body>
-</html>
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Create Category" />
+        </form>
+    </div>
+{% endblock  %}

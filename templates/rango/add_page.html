@@ -1,36 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
+{% extends "rango/base.html" %}
+{% load staticfiles %}
 
-    <body>
-        <div>
-            <!-- cross site forgery token to prevent CSRF crap -->
-                <!-- hidden fields required bc http is stateless -->
-                <!-- Can't persist state between differnt HTTP requests - so hidden html fields created to allow web apps
-                to pass important information to a client in html form -->
-            {% if category %}
-                <h1>Add a Page to {{category.name}}</h1>
-                <form id="page_form" method="post" action="/rango/category/{{ category.slug }}/add_page/">
-                {% csrf_token %}
+{% block titleblock %}
+    Add Page
+{% endblock %}
 
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
+{% block body_block %}
+    {% if category %}
+        <h1>Add a Page to {{category.name}}</h1>
+        <form id="page_form" method="post" action="{% url 'add_page' category.slug %}">
+            {% csrf_token %}
 
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
-                {% endfor %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
 
-                <input type="submit" name="submit" value="Create Page" />
-            </form>
-        {% else %}
-            The specified category does not exist.
-        {% endif %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
 
-        </div>
-    </body>
-</html>
+            <input type="submit" name="submit" value="Create Page" />
+        </form>
+    {% else %}
+        The specified category does not exist.
+    {% endif %}
+{% endblock  %}

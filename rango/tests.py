@@ -179,7 +179,6 @@ class Chapter5ViewTests(TestCase):
         self.assertIn('category', PageAdmin.list_display)
         self.assertIn('url', PageAdmin.list_display)
 
-
 class Chapter6ViewTests(TestCase):
 
     def setUp(self):
