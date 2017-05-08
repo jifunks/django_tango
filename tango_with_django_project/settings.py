@@ -129,3 +129,6 @@ STATIC_URL = '/static/'
 # Media files (Dynamic content like profile pictures etc)
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# Login page
+LOGIN_URL = '/rango/login/'
