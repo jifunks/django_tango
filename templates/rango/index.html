@@ -6,46 +6,45 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Rango says...</h1>
-    <div>
+    <div class="jumbotron">
+        <h1 class="display-3">Rango says...</h1>
         {% if user.is_authenticated %}
-            howdy {{ user.username }}!
+            <h1>howdy {{ user.username }}!</h1>
         {% else %}
-            hey there partner! <br />
+            <h1>hey there partner! <br /></h1>
         {% endif %}
     </div>
-    <h2>Most liked categories</h2>
-    <div>
-    {% if categories %}
-    <ul>
-        {% for category in categories %}
-            <li>
-            <a href="{% url 'show_category' category.slug %}">{{ category.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <strong>There are no categories present.</strong>
-    {% endif %}
-    </div>
-
-    <h2>Most viewed pages</h2>
-    <div>
-    {% if pages %}
-    <ul>
-        {% for page in pages %}
-            <li>
-            <a href="{page.url}">{{ page.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <strong>There are no pages present.</strong>
-    {% endif %}
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Most Liked Categories</h4>
+            <p>
+            {% if categories %}
+            <ul class="list-group">
+                {% for category in categories %}
+                <li class="list-group-item"><a href="{% url 'show_category' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>There are no categories present.</strong>
+            {% endif %}
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <h4>Most Viewed Pages</h4>
+            <p>
+            {% if pages %}
+                <ul class="list-group">
+                {% for page in pages %}
+                    <li class="list-group-item"><a href="{{ page.url }}">{{ page.title }}</a></li> {% endfor %}
+                </ul>
+            {% else %}
+                <strong>There are no categories present.</strong>
+            {% endif %}
+            </p>
+        </div>
     </div>
 
     <div>
         <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" width="300" />
-        <img src="{{ MEDIA_URL }}/neko2.png" alt="Picture of Nekojiru" width="300" />
     </div>
 {% endblock %}
